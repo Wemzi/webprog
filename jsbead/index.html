@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id = "nyitooldal">
+        <h1>SET</h1>
+    <button id="szabalyzat">Szabályzat</button>
+    <div id="szabalyok" style="visibility:hidden">
+        kutyafasz
+    </div>
+        <h2> Játékosok száma</h2>
+    
+    <input type="number" id="playernumber" min="1" max="10" value="1" >
+    <div id="jatekosnevek">
+    <input type="text" value="Játékos1">
+    </div>  
+    <h3> játékmód </h3>
+    <input type = "radio" id="verseny" name="gamemode" value="verseny">
+    <label for="verseny">Verseny</label>
+    <input type = "radio" id="gyakorlo" name="gamemode" value="gyakorlo">
+    <label for="gyakorlo">Gyakorló</label>
+    <button id="startgame">Start</button>
+    </div>
+    <h2 id="allplayers">Avalaible players:</h2>
+    <div id="game" style="visibility:hidden">
+        <table id="kartyak"> 
+        
+        </table>
+        <h3> the selected ones</h3>
+        <table id="selectedcards">
+            <tr id="selectedthree">
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+        </table>
+    </div>
+    
+    <script src="index.js"></script>
+    
+    
+</body>
+
+</html>
