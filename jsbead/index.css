@@ -1,0 +1,82 @@
+#setlogo
+{
+    width:200px;
+    height:150px;
+}
+
+html
+{
+    background-image: url("background.jpg");
+    background-repeat: repeat;
+    align-content: center;
+    background-size: cover;
+}
+
+#game
+{
+    display:flex;
+    justify-content:space-evenly
+    
+}
+
+
+
+#kartyak
+{
+    background: white;
+    align-content:center;
+    align-items:center;
+    text-align: center;
+}
+
+#playersandscores
+{
+    display:flex;
+    justify-content:center;;
+    text-align: center;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 900;
+  padding: 1.25rem 2rem;
+  font-size: 1rem;
+  border-radius: 3.5rem / 100%;
+  position: relative;
+  min-width: 15rem;
+  max-width: 90vw;
+  overflow: hidden;
+  border: 0;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn
+
+#szabalyok
+{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    font-size:3vh;
+    border: 1vh;
+    font: outline;
+    background:white;
+    outline: auto;
+    outline-style: auto;
+    
+}
+
+label{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    font-size:1rem;
+}

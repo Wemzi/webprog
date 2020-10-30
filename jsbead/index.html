@@ -4,15 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>The Game Of Set</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
     <div id = "nyitooldal">
-        <h1>SET</h1>
-    <button id="szabalyzat">Szabályzat</button>
+        <img src="SETlogo.png" id="setlogo" alt="">
+        <br>
+    <button class="btn btn--alpha" id="szabalyzat"><span>szabályzat</span></button>
     <div id="szabalyok" style="visibility:hidden">
-        kutyafasz
+        A Set-ek három kártyából állnak, amelyben olyan kártyáknak kell szerepelniük, <br>
+        Mely egy-egy tulajdonságában vagy teljesen különbözik, vagy teljesen megegyezik. <br>
+        Például, ha csak egy forma van, akkor a másodikon kettőnek, vagy háromnak kell lennie, <br>
+        vagy mindhárom kártyán 1,2,3 formának.
     </div>
         <h2> Játékosok száma</h2>
     
@@ -23,16 +28,32 @@
     <h3> játékmód </h3>
     <input type = "radio" id="verseny" name="gamemode" value="verseny">
     <label for="verseny">Verseny</label>
-    <input type = "radio" id="gyakorlo" name="gamemode" value="gyakorlo">
+    <input type = "radio" id="gyakorlo" name="gamemode" value="gyakorlo" >
     <label for="gyakorlo">Gyakorló</label>
-    <button id="startgame">Start</button>
+    <button class="btn btn--alpha" id="startgame"><span>Start</span></button>
+    <h4> egyéb beállítások</h4>
+    <input type="checkbox" id="dowehaveset" style="visibility:hidden">
+    <label for="dowehaveset" style="visibility:hidden" id="dowehavesetlabel">Segítő gomb, mely megmondja van e SET a pakliban</label>
+    <br>
+    <input type="checkbox" id="showaset" style="visibility:hidden">
+    <label for="showaset" style="visibility:hidden" id="showasetlabel">Segítő gomb, mely mutat egy SET-et</label>
     </div>
-    <h2 id="allplayers">Avalaible players:</h2>
-    <div id="game" style="visibility:hidden">
+    
+    <div id="game" style="visibility:hidden"> 
+        <div>
+        <h2 id="allplayers"><button class="btn btn--alpha">Játékosok:</button></h2>
+        <table id="playersandscores">
+            <tr>
+            </tr>
+            <tr>
+            </tr>
+        </table>
         <table id="kartyak"> 
         
         </table>
-        <h3> the selected ones</h3>
+        </div>
+        <div>
+        <h3 id="helperbuttons"><button class="btn btn--alpha">A kiválasztott kártyák:</button> </h3>
         <table id="selectedcards">
             <tr id="selectedthree">
             <td></td>
@@ -40,6 +61,7 @@
             <td></td>
             </tr>
         </table>
+        </div>
     </div>
     
     <script src="index.js"></script>
