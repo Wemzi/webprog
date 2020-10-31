@@ -15,6 +15,7 @@ const gyakorlomod=document.getElementById("gyakorlo")
 const dowehavesetlabel=document.getElementById("dowehavesetlabel")
 const showasetlabel=document.getElementById("showasetlabel")
 const playersandscores = document.getElementById("playersandscores")
+const plus3kartya= document.getElementById("plus3")
 let startingTime=0
 let timeElapsed = 0
 let cards = 
@@ -426,10 +427,14 @@ function selectCard(e)
         if(idx==2)
         {
             getSelectedCards()
+            console.log(`elso: ${JSON.stringify(elso)}, masodik: ${JSON.stringify(masodik)}, harmadik: ${JSON.stringify(harmadik)}`)
             decideIfSet(elso,masodik,harmadik)
             if(isSet)
             {
-
+                if(threemorecards)
+                {
+                    minus3Cards()
+                }
                 eredmeny.style.color="green"
                 eredmeny.textContent="Ez egy Set!"
                 helperbuttonsplace.insertAdjacentElement('afterend',eredmeny)
@@ -521,6 +526,24 @@ function getSelectedCards()
             harmadik=selectedCards[idx]
         }
     }
+    if(threemorecards)
+    {
+        for(let idx=0; idx<3;idx++)
+        {
+            if(selectedThree.cells[0].firstChild.src.split("%20%20%20")[1]==plus3selectedCards[idx].src)
+            {
+                elso=plus3selectedCards[idx]
+            }
+            if(selectedThree.cells[1].firstChild.src.split("%20%20%20")[1]==plus3selectedCards[idx].src)
+            {
+                masodik=plus3selectedCards[idx]
+            }
+            if(selectedThree.cells[2].firstChild.src.split("%20%20%20")[1]==plus3selectedCards[idx].src)
+            {
+                harmadik=plus3selectedCards[idx]
+            }
+        }
+    }
 }
 
 versenymod.addEventListener('click', makeselections)
@@ -581,46 +604,75 @@ function getNewCards()
 {
     if(isSet)
     {
+        let originalCols = kartyak.rows[0].cells.length
         let index = selectedCards.indexOf(elso)
         let index2 = selectedCards.indexOf(masodik)
         let index3 = selectedCards.indexOf(harmadik)
+        console.log(index)
+        console.log(Math.floor(index/originalCols));
+        console.log(index%originalCols);
+        console.log(index2)
+        console.log(Math.floor(index2/originalCols));
+        console.log(index2%originalCols);
+        console.log(index3)
+        console.log(Math.floor(index3/originalCols));
+        console.log(index3%originalCols);
+        
         if(cards.length!=0)
         {
+            if(threemorecards)
+            {
+            const randnumb=randBtw(0,cards.length)
+            selectedCards[index]=cards[randnumb]
+            kartyak.rows[Math.floor(index/originalCols)].cells[index%originalCols].firstElementChild.src=`clear/   ${plus3selectedCards.pop().src}`
+
             
+            const randnumb2=randBtw(0,cards.length)
+            selectedCards[index2]=cards[randnumb2]
+            kartyak.rows[Math.floor(index2/originalCols)].cells[index2%originalCols].firstElementChild.src=`clear/   ${plus3selectedCards.pop().src}`
+
+            
+            const randnumb3=randBtw(0,cards.length)
+            selectedCards[index3]=cards[randnumb3]
+            kartyak.rows[Math.floor(index3/originalCols)].cells[index3%originalCols].firstElementChild.src=`clear/   ${plus3selectedCards.pop().src}`
+            }
+            else
+            {
             const randnumb=randBtw(0,cards.length)
             selectedCards[index]=cards[randnumb]
             cards.splice(randnumb,1)
-            kartyak.children[Math.floor(index/4)].children[index%4].firstElementChild.src=`clear/   ${selectedCards[index].src}`
+            kartyak.rows[Math.floor(index/originalCols)].cells[index%originalCols].firstElementChild.src=`clear/   ${selectedCards[index].src}`
 
             
             const randnumb2=randBtw(0,cards.length)
             selectedCards[index2]=cards[randnumb2]
             cards.splice(randnumb2,1)
-            kartyak.children[Math.floor(index2/4)].children[index2%4].firstElementChild.src=`clear/   ${selectedCards[index2].src}`
+            kartyak.rows[Math.floor(index2/originalCols)].cells[index2%originalCols].firstElementChild.src=`clear/   ${selectedCards[index2].src}`
 
             
             const randnumb3=randBtw(0,cards.length)
             selectedCards[index3]=cards[randnumb3]
             cards.splice(randnumb3,1)
-            kartyak.children[Math.floor(index3/4)].children[index3%4].firstElementChild.src=`clear/   ${selectedCards[index3].src}`
+            kartyak.rows[Math.floor(index3/originalCols)].cells[index3%originalCols].firstElementChild.src=`clear/   ${selectedCards[index3].src}`
+            }
         }
-        if(cards.length == 0 || threemorecards )
+        if(cards.length == 0 )
         {
-            for(let idx=0; idx<12;idx++)
+            for(let idx=0; idx<selectedCards.length;idx++)
             {
-                if(kartyak.children[Math.floor(idx/4)].children[idx%4].firstElementChild!=null)
+                if(kartyak.rows[Math.floor(idx/originalCols)].children[idx%originalCols].firstElementChild!=null)
                 {
-                    if(kartyak.children[Math.floor(idx/4)].children[idx%4].firstElementChild.src.split("%20%20%20")[1]==selectedCards[index].src)
+                    if(kartyak.rows[Math.floor(idx/originalCols)].cells[idx%originalCols].firstElementChild.src.split("%20%20%20")[1]==selectedCards[index].src)
                     {
-                        kartyak.children[Math.floor(idx/4)].children[idx%4].remove()
+                        kartyak.rows[Math.floor(idx/originalCols)].cells[idx%originalCols].firstElementChild.remove()
                     }
-                    else if(kartyak.children[Math.floor(idx/4)].children[idx%4].firstElementChild.src.split("%20%20%20")[1]==selectedCards[index2].src)
+                    else if(kartyak.rows[Math.floor(idx/originalCols)].cells[idx%originalCols].firstElementChild.src.split("%20%20%20")[1]==selectedCards[index2].src)
                     {
-                        kartyak.children[Math.floor(idx/4)].children[idx%4].remove()
+                        kartyak.rows[Math.floor(idx/originalCols)].cells[idx%originalCols].firstElementChild.remove()
                     }
-                    else if(kartyak.children[Math.floor(idx/4)].children[idx%4].firstElementChild.src.split("%20%20%20")[1]==selectedCards[index3].src)
+                    else if(kartyak.rows[Math.floor(idx/originalCols)].cells[idx%originalCols].firstElementChild.src.split("%20%20%20")[1]==selectedCards[index3].src)
                     {
-                        kartyak.children[Math.floor(idx/4)].children[idx%4].remove()
+                        kartyak.rows[Math.floor(idx/originalCols)].cells[idx%originalCols].firstElementChild.remove()
                     }
                 }
             }
@@ -637,9 +689,10 @@ function showExampleSet()
     doWeHaveSet()
     if(doWeHaveASet)
     {
-       kartyak.children[Math.floor(exampleSet[0]/4)].children[exampleSet[0]%4].style.background="green";
-       kartyak.children[Math.floor(exampleSet[1]/4)].children[exampleSet[1]%4].style.background="green";
-       kartyak.children[Math.floor(exampleSet[2]/4)].children[exampleSet[2]%4].style.background="green";
+        let originalCols = kartyak.rows[0].cells.length
+       kartyak.children[Math.floor(exampleSet[0]/originalCols)].children[exampleSet[0]%originalCols].style.background="green";
+       kartyak.children[Math.floor(exampleSet[1]/originalCols)].children[exampleSet[1]%originalCols].style.background="green";
+       kartyak.children[Math.floor(exampleSet[2]/originalCols)].children[exampleSet[2]%originalCols].style.background="green";
     }
     else
     {
@@ -648,6 +701,8 @@ function showExampleSet()
         helperbuttonsplace.insertAdjacentElement('afterend',eredmeny)
     }
 }
+
+let plus3selectedCards=[]
 
 function plus3Cards()
 {
@@ -658,13 +713,11 @@ function plus3Cards()
         {
                 const randnumb = randBtw(0,(cards.length)-1)
                 console.log(randnumb)
-                const tmptd = document.createElement("td")
                 const myimg= document.createElement("img")
                 myimg.src=`clear/   ${cards[randnumb].src}`
                 myimg.addEventListener('click',selectCard)
-                tmptd.appendChild(myimg)
-                kartyak.children[idx].appendChild(tmptd)
-                selectedCards.push(cards[randnumb])
+                plus3kartya.rows[idx].firstElementChild.appendChild(myimg)
+                plus3selectedCards.push(cards[randnumb])
                 cards.splice(randnumb,1)
         }
     }
@@ -675,13 +728,24 @@ function minus3Cards()
 {
     if(threemorecards)
     {
-        for(let idx=0;idx<3;idx++)
+        for(let idx=0; idx<3;idx++)
         {
-        kartyak.children[idx].lastElementChild.remove();
+            for(let idy=0; idy<4;idy++)
+            {
+                if(!kartyak.rows[idx].cells[idy].firstElementChild)
+                {
+                    const myimg= document.createElement("img")
+                    myimg.src=`clear/   ${plus3selectedCards.pop().src}`
+                    kartyak.rows[idx].cells[idy].appendChild(myimg)
+                }
+            }
+        }
+        for(let idx=0; idx<3;idx++)
+        {
+            plus3kartya.rows[idx].cells[0].firstElementChild.remove()
         }
     }
     threemorecards=false
-    
 }
 
 
