@@ -183,7 +183,10 @@ let cards =
     }
 ]
 
+
+let threemorecards=false
 let cardsOriginal=[...cards]
+let exampleSet=[]
 const timer=document.createElement("h4")
 helperbuttonsplace.insertAdjacentElement('beforeend',timer)
 setInterval(countTime,1000)
@@ -325,6 +328,8 @@ function insertJatekosNevek()
 
 function insertHelperButtons()
 {
+if(helperbuttonsplace.childElementCount==2)
+{
 if(dowehaveasetsetting.checked)
 {
     const dowehaveasetbutton=document.createElement("button")
@@ -339,6 +344,11 @@ if(showasetsetting.checked)
     helperbuttonsplace.appendChild(showasetbutton)
     showasetbutton.addEventListener('click',showExampleSet)
 }
+const threemorecards=document.createElement("button")
+threemorecards.textContent="Plusz 3 lap"
+helperbuttonsplace.appendChild(threemorecards)
+threemorecards.addEventListener('click',plus3Cards)
+}
 
 
 
@@ -349,6 +359,7 @@ function startnewgame()
 {
 
     cards=[...cardsOriginal]
+    selectedCards.splice(0,selectedCards.length)
     nyitooldal.style.visibility="hidden"
     nyitooldal.style.width="1px"
     nyitooldal.style.height="1px"
@@ -391,6 +402,7 @@ function startnewgame()
 
 startgame.addEventListener('click',startnewgame)
 let idx = null
+
 function selectCard(e)
 {
     if(players.length==1)
@@ -401,19 +413,17 @@ function selectCard(e)
     if(selectedPlayer==null)
     {return;}
     else
-        {
+    {
         idx=0
         while(selectedThree.cells[idx]!=null && idx < selectedThree.cells.length && selectedThree.cells[idx].childElementCount!=0 )
         {++idx;}
         const myimg= document.createElement("img")
         myimg.src=e.target.src
-        myimg.addEventListener('click',function(e){console.log(e)
-            console.log(e.target)
-            e.target.remove()})
+        myimg.addEventListener('click',function(e){e.target.remove()})
         if(selectedThree.cells[idx]!=null)
         {selectedThree.cells[idx].appendChild(myimg)}
         
-        if(idx==2 )
+        if(idx==2)
         {
             getSelectedCards()
             decideIfSet(elso,masodik,harmadik)
@@ -462,23 +472,27 @@ function selectCard(e)
             window.setTimeout(deleteSelected,3000)   
             if(cards.length==0)
             {
-                helperbuttonsplace.innerHTML="Elfogytak a SET-ek. szeretnél új játékot kezdeni?"
+                helperbuttonsplace.innerHTML="Elfogyott a pakliból a kártya. nem osztunk többet."
+                doWeHaveSet()
+                if(!doWeHaveASet)
+                {
+                helperbuttonsplace.innerHTML="Elfogytak a SET-ek. Szeretnél új játékot kezdeni?"
                 const restartbutton = document.createElement("button")
                 restartbutton.textContent="Restart"
                 helperbuttonsplace.appendChild(restartbutton)
                 restartbutton.addEventListener('click',function(){
-                    for(let idx=0; idx<3;idx++)
+                for(let idx=0; idx<3;idx++)
                 {
                     kartyak.deleteRow(0)
                 }
                 setTimeout(startnewgame,3000)
                 helperbuttonsplace.innerHTML="A kiválasztott kártyák"
                 })
-                
-            }
-            
+
+                }
+            } 
         }
-        }
+    }
 }
 
 function deleteSelected()
@@ -524,7 +538,8 @@ function decideIfSet(elso,masodik,harmadik)
             || (elso.shape != masodik.shape && elso.shape != harmadik.shape && masodik.shape != harmadik.shape))
             && elso != masodik && elso != harmadik && masodik != harmadik
 }
-let exampleSet=[]
+
+
 
 function doWeHaveSet()
 {
@@ -567,22 +582,53 @@ function getNewCards()
     if(isSet)
     {
         let index = selectedCards.indexOf(elso)
-        const randnumb=randBtw(0,cards.length)
-        selectedCards[index]=cards[randnumb]
-        cards.splice(randnumb,1)
-        kartyak.children[Math.floor(index/4)].children[index%4].firstElementChild.src=`clear/   ${selectedCards[index].src}`
-
         let index2 = selectedCards.indexOf(masodik)
-        const randnumb2=randBtw(0,cards.length)
-        selectedCards[index2]=cards[randnumb2]
-        cards.splice(randnumb2,1)
-        kartyak.children[Math.floor(index2/4)].children[index2%4].firstElementChild.src=`clear/   ${selectedCards[index2].src}`
-
         let index3 = selectedCards.indexOf(harmadik)
-        const randnumb3=randBtw(0,cards.length)
-        selectedCards[index3]=cards[randnumb3]
-        cards.splice(randnumb3,1)
-        kartyak.children[Math.floor(index3/4)].children[index3%4].firstElementChild.src=`clear/   ${selectedCards[index3].src}`
+        if(cards.length!=0)
+        {
+            
+            const randnumb=randBtw(0,cards.length)
+            selectedCards[index]=cards[randnumb]
+            cards.splice(randnumb,1)
+            kartyak.children[Math.floor(index/4)].children[index%4].firstElementChild.src=`clear/   ${selectedCards[index].src}`
+
+            
+            const randnumb2=randBtw(0,cards.length)
+            selectedCards[index2]=cards[randnumb2]
+            cards.splice(randnumb2,1)
+            kartyak.children[Math.floor(index2/4)].children[index2%4].firstElementChild.src=`clear/   ${selectedCards[index2].src}`
+
+            
+            const randnumb3=randBtw(0,cards.length)
+            selectedCards[index3]=cards[randnumb3]
+            cards.splice(randnumb3,1)
+            kartyak.children[Math.floor(index3/4)].children[index3%4].firstElementChild.src=`clear/   ${selectedCards[index3].src}`
+        }
+        if(cards.length == 0 || threemorecards )
+        {
+            for(let idx=0; idx<12;idx++)
+            {
+                if(kartyak.children[Math.floor(idx/4)].children[idx%4].firstElementChild!=null)
+                {
+                    if(kartyak.children[Math.floor(idx/4)].children[idx%4].firstElementChild.src.split("%20%20%20")[1]==selectedCards[index].src)
+                    {
+                        kartyak.children[Math.floor(idx/4)].children[idx%4].remove()
+                    }
+                    else if(kartyak.children[Math.floor(idx/4)].children[idx%4].firstElementChild.src.split("%20%20%20")[1]==selectedCards[index2].src)
+                    {
+                        kartyak.children[Math.floor(idx/4)].children[idx%4].remove()
+                    }
+                    else if(kartyak.children[Math.floor(idx/4)].children[idx%4].firstElementChild.src.split("%20%20%20")[1]==selectedCards[index3].src)
+                    {
+                        kartyak.children[Math.floor(idx/4)].children[idx%4].remove()
+                    }
+                }
+            }
+            selectedCards.splice(index,1)
+            selectedCards.splice(index2,1)
+            selectedCards.splice(index3,1)
+            threemorecards=false
+        }
     }
 }
 
@@ -601,6 +647,41 @@ function showExampleSet()
         eredmeny.textContent="nincs benne SET!"
         helperbuttonsplace.insertAdjacentElement('afterend',eredmeny)
     }
+}
+
+function plus3Cards()
+{
+    
+    if(!threemorecards && cards.length > 2)
+    {
+        for(let idx=0; idx<3;idx++)
+        {
+                const randnumb = randBtw(0,(cards.length)-1)
+                console.log(randnumb)
+                const tmptd = document.createElement("td")
+                const myimg= document.createElement("img")
+                myimg.src=`clear/   ${cards[randnumb].src}`
+                myimg.addEventListener('click',selectCard)
+                tmptd.appendChild(myimg)
+                kartyak.children[idx].appendChild(tmptd)
+                selectedCards.push(cards[randnumb])
+                cards.splice(randnumb,1)
+        }
+    }
+    threemorecards=true
+}
+
+function minus3Cards()
+{
+    if(threemorecards)
+    {
+        for(let idx=0;idx<3;idx++)
+        {
+        kartyak.children[idx].lastElementChild.remove();
+        }
+    }
+    threemorecards=false
+    
 }
 
 
