@@ -1,0 +1,29 @@
+{
+    "5fe8e431cde34": {
+        "teljesnev": "Luk\u00e1cs D\u00e1vid",
+        "jelszo": "$2y$10$Kdq8jqvW7dIoBU2MXisN7.euJCrWyqp03HqtrEPWdM6oix1gBE\/1m",
+        "tajszam": "123456789",
+        "ertesitesicim": "7300 Koml\u00f3 Mecsekfalu V\u00f6lgy 31",
+        "email": "lkcsdvd@hotmail.com",
+        "role": "user",
+        "id": "5fe8e431cde34"
+    },
+    "5feb292222e8f": {
+        "teljesnev": "Admin K\u00e1roly",
+        "jelszo": "$2y$10$mCY22hdaT6bsL4lDLfVFb.VxrokWpQwfXjUVcYYA5zG4J7Okx3iqe",
+        "tajszam": "696969696",
+        "ertesitesicim": "7300 Koml\u00f3 Mecsekfalu V\u00f6lgy 31",
+        "email": "admin@nemkovid.hu",
+        "role": "god",
+        "id": "5feb292222e8f"
+    },
+    "5feb542b011cf": {
+        "teljesnev": "Krausz Piroska",
+        "jelszo": "$2y$10$eps2Gvk2ihhQfufSi4rk8.L1MHyIybyBr86sgG5BmA0szsWkudrvG",
+        "tajszam": "115596449",
+        "ertesitesicim": "7300 Koml\u00f3 Mecsekfalu V\u00f6lgy 31",
+        "email": "krapira@gmail.com",
+        "role": "user",
+        "id": "5feb542b011cf"
+    }
+}

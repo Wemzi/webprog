@@ -1,0 +1,22 @@
+{
+    "5feb587cc5dac": {
+        "date": "2020-12-29T16:58",
+        "ferohelyek": "4",
+        "jelentkezettek": [
+            "5feb542b011cf",
+            "5feb542b011cf",
+            "5feb542b011cf",
+            "5feb292222e8f",
+            "5fe8e431cde34"
+        ],
+        "id": "5feb587cc5dac"
+    },
+    "5feb59fd277bb": {
+        "date": "2020-12-29T19:33",
+        "ferohelyek": "3",
+        "jelentkezettek": [
+            "5feb292222e8f"
+        ],
+        "id": "5feb59fd277bb"
+    }
+}
